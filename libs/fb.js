@@ -1,4 +1,5 @@
-(function (d, s, id) {
+if (typeof FB == "undefined") {
+  (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) {
     return;
@@ -7,13 +8,14 @@
   js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+  }(document, 'script', 'facebook-jssdk'));
 
-//Intialize fb login
-window.fbAsyncInit = function () {
-  FB.init({
-    appId: Project.facebook.appId,
-    xfbml: true,
-    version: 'v2.7'
-  });
-};
+  //Intialize fb login
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: Project.facebook.appId,
+      xfbml: true,
+      version: 'v2.7'
+    });
+  };
+}
