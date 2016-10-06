@@ -47,4 +47,4 @@ var Google = {
   }
 }
 
-module.exports = { Facebook, Google };
+exports = { Facebook, Google };
