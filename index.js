@@ -1,16 +1,16 @@
 import * as firebase from 'firebase';
 import Auth from './auth';
 
-class FireAuth {
-  user = null;
-  profile = null;
-  onUserChange = null;
-  onLogout = null;
-  onEmailVerified = null;
-  onLogin = null;
-  onError = null;
+const FireAuth = {
+  user: null,
+  profile: null,
+  onUserChange: null,
+  onLogout: null,
+  onEmailVerified: null,
+  onLogin: null,
+  onError: null,
 
-  init(config, api) {
+  init: (config, api) => {
     if (!config || !config.apiKey) {
       console.error('FireAuth must be initialised with a valid Firebase configuration object.');
       return;
@@ -29,9 +29,9 @@ class FireAuth {
 
     // Initialise Google api
     Auth.Google.init(api.googleApiKey, api.googleClientId);
-  }
+  },
 
-  setup = (onLogin, onUserChange, onLogout, onEmailVerified, onError) => {
+  setup: (onLogin, onUserChange, onLogout, onEmailVerified, onError) => {
     this.onUserChange = onUserChange;
     this.onLogout = onLogout;
     this.onEmailVerified = onEmailVerified;
@@ -73,18 +73,18 @@ class FireAuth {
       }
 
     });
-  }
+  },
 
-  login = (email, password) => {
+  login: (email, password) => {
     try {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .catch((err) => this.onError && this.onError(err));
     } catch (e) {
       this.onError && this.onError(e);
     }
-  }
+  },
 
-  register = (username, password) => {
+  register: (username, password) => {
     try {
       firebase.auth().createUserWithEmailAndPassword(username, password)
         .then((user)=> {
@@ -94,58 +94,58 @@ class FireAuth {
     } catch (e) {
       this.onError && this.onError(e);
     }
-  }
+  },
 
-  resendVerification = () => {
+  resendVerification: () => {
     this.user.sendEmailVerification();
-  }
+  },
 
-  facebookLogin = (permissions) => {
+  facebookLogin: (permissions) => {
     Auth.Facebook.login(permissions)
       .then((token) => (
         firebase.auth()
           .signInWithCredential(firebase.auth.FacebookAuthProvider.credential(token))
       ))
       .catch((err) => this.onError && this.onError(err));
-  }
+  },
 
-  googleLogin = () => {
+  googleLogin: () => {
     Auth.Google.login()
       .then((token) => (
         firebase.auth()
           .signInWithCredential(firebase.auth.GoogleAuthProvider.credential(null, token))
       ))
       .catch((err) => this.onError && this.onError(err));
-  }
+  },
 
-  logout = () => {
+  logout: () => {
     firebase.auth().signOut();
-  }
+  },
 
-  update = (data) => {
+  update: (data) => {
     var profileRef = firebase.database().ref(`profiles/${this.user.uid}`);
     return profileRef.update(data);
-  }
+  },
 
-  resetPassword = (email) => {
+  resetPassword: (email) => {
     firebase.auth().sendPasswordResetEmail(email);
-  }
+  },
 
-  updatePassword = (password) => {
+  updatePassword: (password) => {
     this.user.updatePassword(password);
-  }
+  },
 
-  linkWithGoogle = () => {
+  linkWithGoogle: () => {
     // @TODO
-  }
+  },
 
-  linkWithFacebook = () => {
+  linkWithFacebook: () => {
     // @TODO
-  }
+  },
 
-  linkWithEmail = () => {
+  linkWithEmail: () => {
     // @TODO
   }
 };
 
-export default new FireAuth();
+module.exports = FireAuth;
