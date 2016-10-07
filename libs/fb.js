@@ -9,13 +9,4 @@ if (typeof FB == "undefined") {
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
-  //Intialize fb login
-  window.fbAsyncInit = function () {
-    FB.init({
-      appId: Project.facebook.appId,
-      xfbml: true,
-      version: 'v2.7'
-    });
-  };
 }

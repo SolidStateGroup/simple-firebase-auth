@@ -1,25 +1,37 @@
-var firebase = require('firebase');
-var Auth = require('./auth');
+import * as firebase from 'firebase';
+import Auth from './auth';
 
-var FireAuth = new function() {
-  this.user = null;
-  this.profile = null;
-  this.onUserChange = null;
-  this.onLogout = null;
-  this.onEmailVerified = null;
-  this.onLogin = null;
-  this.onError = null;
+class FireAuth {
+  user = null;
+  profile = null;
+  onUserChange = null;
+  onLogout = null;
+  onEmailVerified = null;
+  onLogin = null;
+  onError = null;
 
-  this.init = function(config) {
-    if (!config) {
-      console.error('FireAuth must be initialized with a valid firebase configuration object.');
+  init(config, api) {
+    if (!config || !config.apiKey) {
+      console.error('FireAuth must be initialised with a valid Firebase configuration object.');
       return;
     }
 
+    if (!api || !api.fbAppId || !api.googleApiKey || !api.googleClientId) {
+      console.error('FireAuth must be initialised with valid configuration for Facebook and Google APIs');
+      return;
+    }
+
+    // Initialise Firebase
     firebase.initializeApp(config);
+
+    // Initialise Facebook api
+    Auth.Facebook.init(api.fbAppId);
+
+    // Initialise Google api
+    Auth.Google.init(api.googleApiKey, api.googleClientId);
   }
 
-  this.setup = function(onLogin, onUserChange, onLogout, onEmailVerified, onError) {
+  setup = (onLogin, onUserChange, onLogout, onEmailVerified, onError) => {
     this.onUserChange = onUserChange;
     this.onLogout = onLogout;
     this.onEmailVerified = onEmailVerified;
@@ -61,11 +73,9 @@ var FireAuth = new function() {
       }
 
     });
-
-    Auth.Google.configure();
   }
 
-  this.login = function(email, password) {
+  login = (email, password) => {
     try {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .catch((err) => this.onError && this.onError(err));
@@ -74,7 +84,7 @@ var FireAuth = new function() {
     }
   }
 
-  this.register = function(username, password) {
+  register = (username, password) => {
     try {
       firebase.auth().createUserWithEmailAndPassword(username, password)
         .then((user)=> {
@@ -86,11 +96,11 @@ var FireAuth = new function() {
     }
   }
 
-  this.resendVerification = function() {
+  resendVerification = () => {
     this.user.sendEmailVerification();
   }
 
-  this.facebookLogin = function(permissions) {
+  facebookLogin = (permissions) => {
     Auth.Facebook.login(permissions)
       .then((token) => (
         firebase.auth()
@@ -99,7 +109,7 @@ var FireAuth = new function() {
       .catch((err) => this.onError && this.onError(err));
   }
 
-  this.googleLogin = function() {
+  googleLogin = () => {
     Auth.Google.login()
       .then((token) => (
         firebase.auth()
@@ -108,34 +118,34 @@ var FireAuth = new function() {
       .catch((err) => this.onError && this.onError(err));
   }
 
-  this.logout = function() {
+  logout = () => {
     firebase.auth().signOut();
   }
 
-  this.update = function(data) {
+  update = (data) => {
     var profileRef = firebase.database().ref(`profiles/${this.user.uid}`);
     return profileRef.update(data);
   }
 
-  this.resetPassword = function(email) {
+  resetPassword = (email) => {
     firebase.auth().sendPasswordResetEmail(email);
   }
 
-  this.updatePassword = function(password) {
+  updatePassword = (password) => {
     this.user.updatePassword(password);
   }
 
-  this.linkWithGoogle = function() {
+  linkWithGoogle = () => {
     // @TODO
   }
 
-  this.linkWithFacebook = function() {
+  linkWithFacebook = () => {
     // @TODO
   }
 
-  this.linkWithEmail = function() {
+  linkWithEmail = () => {
     // @TODO
   }
 };
 
-module.exports = FireAuth;
+export default new FireAuth();

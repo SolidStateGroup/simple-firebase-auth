@@ -1,7 +1,16 @@
 require('./libs/fb');
 require('./libs/gapi');
 
-var Facebook = {
+const Facebook = {
+  init: (appId) => {
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: appId,
+        xfbml: true,
+        version: 'v2.7'
+      });
+    };
+  },
   login: function(permissions) {
     return new Promise((resolve) => {
       if (typeof FB != "undefined") {
@@ -9,7 +18,7 @@ var Facebook = {
           if (FB.getAccessToken()) {
             resolve(FB.getAccessToken());
           }
-        }, { scope: 'public_profile,email' });
+        }, { scope: permissions || 'public_profile,email' });
         return true;
       } else {
         return false;
@@ -30,12 +39,16 @@ var Facebook = {
   }
 }
 
-var Google = {
+const Google = {
+  init: (apiKey, clientId) => {
+    this.apiKey = apiKey;
+    this.clientId = clientId;
+  },
   login: () => {
     return new Promise((resolve) => {
-      gapi.client.setApiKey(Project.google.APIKey);
+      gapi.client.setApiKey(this.apiKey);
       gapi.auth.authorize({
-        'client_id': Project.google.clientID,
+        'client_id': this.clientId,
         scope: 'email profile',
         prompt: 'select_account'
       }, function (r) {
@@ -47,4 +60,4 @@ var Google = {
   }
 }
 
-exports = { Facebook, Google };
+export default { Facebook, Google };

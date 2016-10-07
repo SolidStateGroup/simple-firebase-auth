@@ -1,20 +1,29 @@
-# React Firebase Authentication
+# Simple Firebase Authentication
 
 Simplified Firebase authentication with support for social platform login.
 
 ## Install
 ```
-$ npm install firebase react-firebase-auth --save
+$ npm install firebase simple-firebase-auth --save
 ```
 
-## Usage
+## Usage (with React)
 
 ```
-import FireAuth from 'react-native-firebase-auth';
+import FireAuth from 'simple-firebase-auth';
 
 constructor(props) {
   super(props);
-  FireAuth.init(config);
+  FireAuth.init({
+    apiKey: "<API_KEY>",
+    authDomain: "<PROJECT_ID>.firebaseapp.com",
+    databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+    storageBucket: "<BUCKET>.appspot.com"
+  }, {
+    fbAppId: "<APP_ID>",
+    googleApiKey: "<API_KEY>",
+    googleClientId: "<CLIENT_ID>"
+  });
 }
 
 componentDidMount() {
