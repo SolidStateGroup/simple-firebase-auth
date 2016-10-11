@@ -1,7 +1,9 @@
 # Simple Firebase Auth
 
-Simplified Firebase authentication for web with support for Facebook & Google login.
+Simplified Firebase authentication for web with support for Facebook & Google login. 
+
 Using this module alongside Firebase means there is no need to write and host any backend code to handle users logging in to your app.
+
 Use our project starter repository (https://github.com/SolidStateGroup/firebase-project-starter) to help you get started setting up your own Firebase project.
 
 ## Install
