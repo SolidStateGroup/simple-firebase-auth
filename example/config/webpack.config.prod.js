@@ -13,6 +13,10 @@ module.exports = {
         './index.js',
     ],
 
+    externals: {
+      "firebase": "firebase"
+    },
+
     module: {
         loaders: require('./loaders')
     },
