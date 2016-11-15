@@ -1,6 +1,6 @@
 {
   "name": "simple-firebase-auth",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simplified Firebase authentication with social platform support",
   "main": "dist/index",
   "directories": {
@@ -38,7 +38,6 @@
     "express": "4.14.0",
     "express-handlebars": "3.0.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
-    "firebase": "^3.4.1",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.22.0",
     "image-webpack-loader": "2.0.0",
