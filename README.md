@@ -11,6 +11,10 @@ Use our project starter repository (https://github.com/SolidStateGroup/firebase-
 $ npm install --save firebase simple-firebase-auth
 ```
 
+## Project Setup
+
+You will need to initialise Firebase within your app in the usual way. See https://firebase.google.com/docs/web/setup
+
 ## Example Usage (with React)
 
 ```
@@ -19,14 +23,9 @@ import FireAuth from 'simple-firebase-auth';
 constructor(props) {
   super(props);
   FireAuth.init({
-    apiKey: "<API_KEY>",
-    authDomain: "<PROJECT_ID>.firebaseapp.com",
-    databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-    storageBucket: "<BUCKET>.appspot.com"
-  }, {
-    fbAppId: "<APP_ID>",
-    googleApiKey: "<API_KEY>",
-    googleClientId: "<CLIENT_ID>"
+    fbAppId: "<FACEBOOK_APP_ID>",
+    webClientId: "<FIREBASE_WEB_CLIENT_ID>",
+    apiKey: "<FIREBASE_API_KEY>"
   });
 }
 

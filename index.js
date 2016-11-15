@@ -10,25 +10,17 @@ const FireAuth = {
   onLogin: null,
   onError: null,
 
-  init: (config, api) => {
-    if (!config || !config.apiKey) {
-      console.error('FireAuth must be initialised with a valid Firebase configuration object.');
-      return;
-    }
-
-    if (!api || !api.fbAppId || !api.googleApiKey || !api.googleClientId) {
+  init: (config) => {
+    if (!config || !config.fbAppId || !config.webClientId || !config.apiKey) {
       console.error('FireAuth must be initialised with valid configuration for Facebook and Google APIs');
       return;
     }
 
-    // Initialise Firebase
-    firebase.initializeApp(config);
-
     // Initialise Facebook api
-    Auth.Facebook.init(api.fbAppId);
+    Auth.Facebook.init(config.fbAppId);
 
     // Initialise Google api
-    Auth.Google.init(api.googleApiKey, api.googleClientId);
+    Auth.Google.init(config.apiKey, config.webClientId);
   },
 
   setup: (onLogin, onUserChange, onLogout, onEmailVerified, onError) => {
