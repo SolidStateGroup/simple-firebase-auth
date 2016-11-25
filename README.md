@@ -1,6 +1,6 @@
 # Simple Firebase Auth
 
-Simplified Firebase authentication for web with support for Facebook & Google login. 
+Simplified Firebase authentication for web with support for Facebook & Google login.
 
 Using this module alongside Firebase means there is no need to write and host any backend code to handle users logging in to your app.
 
@@ -18,11 +18,12 @@ You will need to initialise Firebase within your app in the usual way. See https
 ## Example Usage (with React)
 
 ```
+import * as firebase from 'firebase';
 import FireAuth from 'simple-firebase-auth';
 
 constructor(props) {
   super(props);
-  FireAuth.init({
+  FireAuth.init(firebase, {
     fbAppId: "<FACEBOOK_APP_ID>",
     webClientId: "<FIREBASE_WEB_CLIENT_ID>",
     apiKey: "<FIREBASE_API_KEY>"

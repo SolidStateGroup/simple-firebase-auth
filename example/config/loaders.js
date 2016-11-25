@@ -1,12 +1,12 @@
 module.exports = [
     {
         test: /\.css$/,
-        loaders: ['style', 'css']
+        loaders: ['style-loader', 'css-loader']
     },
     {
         test: /\.js?/,
         exclude: /node_modules/,
-        loaders: ['babel']
+        loaders: ['babel-loader']
     },
     {
         test: /\.html$/,
