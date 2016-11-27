@@ -1,6 +1,6 @@
 {
   "name": "simple-firebase-auth",
-  "version": "0.0.7",
+  "version": "0.0.6",
   "description": "Simplified Firebase authentication with social platform support",
   "main": "dist/index",
   "directories": {
@@ -57,6 +57,9 @@
     "webpack-dashboard": "git+https://github.com/kyle-ssg/webpack-dashboard.git#master",
     "webpack-dev-middleware": "1.7.0",
     "webpack-hot-middleware": "2.12.2"
+  },
+  "peerDependencies": {
+    "firebase": ">=3.0.0"
   },
   "repository": {
     "type": "git",
