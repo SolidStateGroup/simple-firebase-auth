@@ -1,4 +1,6 @@
 # Simple Firebase Auth
+
+[![Join the chat at https://gitter.im/SolidStateGroup/simple-firebase-auth](https://badges.gitter.im/SolidStateGroup/simple-firebase-auth.svg)](https://gitter.im/SolidStateGroup/simple-firebase-auth?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 **For react-native check out https://github.com/SolidStateGroup/react-native-firebase-auth**
 
 Simplified Firebase authentication for web with support for Facebook & Google login. 
